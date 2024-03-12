@@ -1,18 +1,9 @@
 package com.soat220.lanchonete.common.driven.postgresdb.model
 
+import com.soat220.lanchonete.common.model.PaymentStatus
 import com.soat220.lanchonete.common.model.enums.OrderStatus
 import java.time.LocalDateTime
-import javax.persistence.CascadeType
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.FetchType
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.OneToMany
-import javax.persistence.Table
+import javax.persistence.*
 import com.soat220.lanchonete.common.model.Order as DomainOrder
 
 @Entity
@@ -29,6 +20,10 @@ class Order(
     @Column(name = "status", nullable = false)
     var status: OrderStatus,
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_status")
+    var paymentStatus: PaymentStatus,
+
     @Column(name = "notes", length = 100, nullable = false)
     var notes: String,
 
@@ -38,7 +33,7 @@ class Order(
     @Column(name = "updated_at", nullable = false)
     var updatedAt: LocalDateTime = LocalDateTime.now(),
 
-    @OneToMany(mappedBy = "order", cascade = [CascadeType.ALL], orphanRemoval = true)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "order", cascade = [CascadeType.ALL], orphanRemoval = true)
     var orderItems: List<OrderItem> = mutableListOf()
 ) {
 
@@ -50,6 +45,7 @@ class Order(
         notes = notes,
         createdAt = createdAt,
         updatedAt = updatedAt,
+        paymentStatus = paymentStatus
     )
 
     companion object {
@@ -60,7 +56,8 @@ class Order(
             status = order.orderStatus,
             createdAt = order.createdAt,
             updatedAt = order.updatedAt,
-            notes = order.notes
+            notes = order.notes,
+            paymentStatus = order.paymentStatus
         )
     }
 }

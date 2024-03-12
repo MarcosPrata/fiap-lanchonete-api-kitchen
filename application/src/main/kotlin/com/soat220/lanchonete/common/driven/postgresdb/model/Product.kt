@@ -20,7 +20,7 @@ class Product(
     private val category: Category,
     private val price: Double,
     @OneToMany(mappedBy = "product", cascade = [CascadeType.ALL], orphanRemoval = true)
-    private val images: MutableList<ProductImage>,
+    private val images: MutableList<ProductImage>? = null,
     var deleted: Boolean
 ) {
     fun toDomain() = DomainProduct(
@@ -29,7 +29,7 @@ class Product(
         description = description,
         category = category,
         price = price,
-        imageUrls = images.map { it.imageUrl },
+//        imageUrls = images.map { it.imageUrl },
         deleted = deleted
     )
 

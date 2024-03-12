@@ -8,6 +8,7 @@ class Order(
     var customer: Customer? = null,
     var orderItems: MutableList<OrderItem>,
     val orderStatus: OrderStatus,
+    var paymentStatus: PaymentStatus,
     val notes: String,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime

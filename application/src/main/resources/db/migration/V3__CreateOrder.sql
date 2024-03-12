@@ -2,6 +2,7 @@ CREATE TABLE "order_table" (
 	id bigserial NOT NULL,
 	customer_id bigint,
 	status int NOT NULL,
+	payment_status varchar(20) NOT NULL,
 	notes varchar(100) NOT NULL,
 	created_at timestamp NOT NULL default now(),
 	updated_at timestamp NOT NULL default now(),
@@ -23,8 +24,8 @@ CREATE TABLE orderItem (
 );
 
 
-INSERT INTO "order_table" (id, customer_id, status, notes) VALUES (1, 1, 1, 'Favor não colocar sal');
-INSERT INTO "order_table" (id, customer_id, status, notes) VALUES (2, 2, 0, 'Entregar no orfanato de gothan city');
+INSERT INTO "order_table" (id, customer_id, status, notes, payment_status) VALUES (1, 1, 1, 'Favor não colocar sal', 'APPROVED');
+INSERT INTO "order_table" (id, customer_id, status, notes, payment_status) VALUES (2, 2, 0, 'Entregar no orfanato de gothan city', 'APPROVED');
 
 ALTER SEQUENCE order_table_id_seq RESTART WITH 3;
 

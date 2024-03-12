@@ -4,6 +4,7 @@ import com.soat220.lanchonete.common.driven.postgresdb.OrderRepository
 import com.soat220.lanchonete.common.exception.DomainException
 import com.soat220.lanchonete.common.exception.ErrorCode
 import com.soat220.lanchonete.common.model.Order
+import com.soat220.lanchonete.common.model.PaymentStatus
 import com.soat220.lanchonete.common.model.enums.OrderStatus
 import com.soat220.lanchonete.common.result.Failure
 import com.soat220.lanchonete.common.result.Result
@@ -38,7 +39,8 @@ class SetOrderStatusAdapterTest {
             notes = "",
             orderItems = mutableListOf(),
             createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            updatedAt = LocalDateTime.now(),
+            paymentStatus = PaymentStatus.APPROVED
         )
 
         val entityOrder = com.soat220.lanchonete.common.driven.postgresdb.model.Order.fromDomain(order)

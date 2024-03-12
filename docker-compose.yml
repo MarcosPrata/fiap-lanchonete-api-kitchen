@@ -2,23 +2,24 @@ version: '3'
 
 services:
   app:
-    container_name: "lanchonete_api"
+    container_name: "kitchen_api"
     build:
       context: .
       dockerfile: Dockerfile
     environment:
-      DB_URL: jdbc:postgresql://postgres:5432/lanchonete
+      DB_URL: jdbc:postgresql://postgres:5432/lanchonete?currentSchema=kitchen
+      SERVER_PORT: 82
     ports:
-      - "80:80"
-    depends_on:
-      - postgres
-
-  postgres:
-    image: postgres
-    restart: unless-stopped
-    environment:
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_DB: lanchonete
-    ports:
-      - "5432:5432"
+      - "82:82"
+#    depends_on:
+#      - postgres
+#
+#  postgres:
+#    image: postgres
+#    restart: unless-stopped
+#    environment:
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_USER: postgres
+#      POSTGRES_DB: lanchonete
+#    ports:
+#      - "5432:5432"

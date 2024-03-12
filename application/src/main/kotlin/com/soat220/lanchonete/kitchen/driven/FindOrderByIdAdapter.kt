@@ -4,27 +4,21 @@ import com.soat220.lanchonete.common.driven.postgresdb.OrderRepository
 import com.soat220.lanchonete.common.exception.DomainException
 import com.soat220.lanchonete.common.exception.ErrorCode
 import com.soat220.lanchonete.common.model.Order
-import com.soat220.lanchonete.common.model.PaymentStatus
-import com.soat220.lanchonete.common.model.enums.OrderStatus
 import com.soat220.lanchonete.common.result.Failure
 import com.soat220.lanchonete.common.result.Result
 import com.soat220.lanchonete.common.result.Success
-import com.soat220.lanchonete.kitchen.port.FindOrdersByStatusPort
+import com.soat220.lanchonete.kitchen.port.FindOrderByIdPort
 import org.springframework.stereotype.Service
 
 @Service
-class FindOrdersByStatusAdapter(
+class FindOrderByIdAdapter(
     private val orderRepository: OrderRepository
-) : FindOrdersByStatusPort {
-    override fun execute(orderStatus: OrderStatus): Result<List<Order>, DomainException> {
+): FindOrderByIdPort {
+    override fun execute(orderId: Long): Result<Order, DomainException> {
         return try {
-            Success(
-                orderRepository.findAllByStatusAndPaymentStatusOrderByCreatedAtAsc(orderStatus, PaymentStatus.APPROVED).map { it.toDomain() }
-            )
+            Success(orderRepository.findById(orderId).orElseThrow().toDomain())
         } catch (e: Exception) {
-            return Failure(
-                DomainException(e, ErrorCode.DATABASE_ERROR)
-            )
+            Failure(DomainException(e, ErrorCode.DATABASE_ERROR))
         }
     }
 }
