@@ -7,19 +7,31 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      DB_URL: jdbc:postgresql://postgres:5432/lanchonete?currentSchema=kitchen
+      DB_URL: jdbc:postgresql://fiap-lanchonete-api-kitchen-postgres-1:5434/kitchen
       SERVER_PORT: 82
+      RABBIT_HOST: rabbitmq
     ports:
       - "82:82"
-#    depends_on:
-#      - postgres
-#
-#  postgres:
-#    image: postgres
-#    restart: unless-stopped
-#    environment:
-#      POSTGRES_PASSWORD: postgres
-#      POSTGRES_USER: postgres
-#      POSTGRES_DB: lanchonete
-#    ports:
-#      - "5432:5432"
+    depends_on:
+      - postgres
+    networks:
+      - fiap-lanchonete-api-customer-totem_shared
+
+  postgres:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: kitchen
+    expose:
+      - "5434"
+    ports:
+      - "5434:5434"
+    command: -p 5434
+    networks:
+      - fiap-lanchonete-api-customer-totem_shared
+
+networks:
+  fiap-lanchonete-api-customer-totem_shared:
+    external: true

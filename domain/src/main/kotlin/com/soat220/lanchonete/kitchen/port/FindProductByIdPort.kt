@@ -1,0 +1,11 @@
+package com.soat220.lanchonete.kitchen.port
+
+import com.soat220.lanchonete.common.exception.NotFoundException
+import com.soat220.lanchonete.common.model.Product
+import com.soat220.lanchonete.common.result.Result
+
+interface FindProductByIdPort {
+
+    fun execute(productId: Long): Result<Product, NotFoundException>
+
+}

@@ -10,7 +10,7 @@ import com.soat220.lanchonete.common.model.Order as DomainOrder
 @Table(name = "order_table")
 class Order(
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
     @ManyToOne(fetch = FetchType.LAZY)

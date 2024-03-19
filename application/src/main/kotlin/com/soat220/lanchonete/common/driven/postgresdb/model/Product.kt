@@ -23,25 +23,25 @@ class Product(
     private val images: MutableList<ProductImage>? = null,
     var deleted: Boolean
 ) {
-    fun toDomain() = DomainProduct(
-        id = id,
-        name = name,
-        description = description,
-        category = category,
-        price = price,
+//    fun toDomain() = DomainProduct(
+//        id = id,
+//        name = name,
+//        description = description,
+//        category = category,
+//        price = price,
 //        imageUrls = images.map { it.imageUrl },
-        deleted = deleted
-    )
+//        deleted = deleted
+//    )
 
-    companion object {
-        fun fromDomain(product: DomainProduct) = Product(
-            id = product.id,
-            name = product.name,
-            description = product.description,
-            category = product.category,
-            price = product.price,
-            images = mutableListOf(),
-            deleted = product.deleted
-        )
-    }
+//    companion object {
+//        fun fromDomain(product: DomainProduct) = Product(
+//            id = product.id,
+//            name = product.name,
+//            description = product.description,
+//            category = product.category,
+//            price = product.price,
+//            images = mutableListOf(),
+//            deleted = product.deleted
+//        )
+//    }
 }

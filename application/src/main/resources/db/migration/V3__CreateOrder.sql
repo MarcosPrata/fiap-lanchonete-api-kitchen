@@ -19,21 +19,20 @@ CREATE TABLE orderItem (
 	amount integer NOT NULL,
 
 	CONSTRAINT fk_orderitem_order FOREIGN KEY ("order_id") REFERENCES "order_table"(id),
-	CONSTRAINT fk_orderitem_item FOREIGN KEY ("product_id") REFERENCES product(id),
 	CONSTRAINT orderitem_pkey PRIMARY KEY (id)
 );
 
-
-INSERT INTO "order_table" (id, customer_id, status, notes, payment_status) VALUES (1, 1, 1, 'Favor não colocar sal', 'APPROVED');
-INSERT INTO "order_table" (id, customer_id, status, notes, payment_status) VALUES (2, 2, 0, 'Entregar no orfanato de gothan city', 'APPROVED');
-
-ALTER SEQUENCE order_table_id_seq RESTART WITH 3;
-
-INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (1, 1, 2, 2 );
-
-INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (2, 2, 1, 500);
-INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (3, 2, 2, 500);
-INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (4, 2, 3, 500);
-INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (5, 2, 4, 500);
-
-ALTER SEQUENCE orderitem_id_seq RESTART WITH 6;
+--
+--INSERT INTO "order_table" (id, customer_id, status, notes, payment_status) VALUES (1, 1, 1, 'Favor não colocar sal', 'APPROVED');
+--INSERT INTO "order_table" (id, customer_id, status, notes, payment_status) VALUES (2, 2, 0, 'Entregar no orfanato de gothan city', 'APPROVED');
+--
+--ALTER SEQUENCE order_table_id_seq RESTART WITH 3;
+--
+--INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (1, 1, 2, 2 );
+--
+--INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (2, 2, 1, 500);
+--INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (3, 2, 2, 500);
+--INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (4, 2, 3, 500);
+--INSERT INTO orderitem (id, order_id, product_id, amount) VALUES (5, 2, 4, 500);
+--
+--ALTER SEQUENCE orderitem_id_seq RESTART WITH 6;
