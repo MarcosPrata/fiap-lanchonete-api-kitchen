@@ -20,9 +20,9 @@ class RegisterOrderAdapter(
 
     override fun execute(order: Order) {
 
-        if (nonNull(order.customer)) {
-            saveCustomerPort.execute(order.customer!!)
-        }
+//        if (nonNull(order.customer)) {
+//            saveCustomerPort.execute(order.customer!!)
+//        }
 
         val orderItensTosave = order.orderItems.map { OrderItem.fromDomain(it) }
 

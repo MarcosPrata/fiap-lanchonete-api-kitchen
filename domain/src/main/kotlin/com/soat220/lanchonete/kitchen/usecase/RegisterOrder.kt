@@ -5,7 +5,7 @@ import com.soat220.lanchonete.kitchen.port.RegisterOrderPort
 import javax.inject.Named
 
 @Named
-class RegisterNewOrder (
+class RegisterOrder (
     private val registerOrderPort: RegisterOrderPort
 ) {
 

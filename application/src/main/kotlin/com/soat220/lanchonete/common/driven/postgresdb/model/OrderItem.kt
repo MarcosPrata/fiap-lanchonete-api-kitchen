@@ -38,7 +38,7 @@ class OrderItem(
     companion object {
         fun fromDomain(orderItem: DomainOrderItem) = OrderItem(
             id = orderItem.id,
-            product = orderItem.productId!!,
+            product = (if (orderItem.productId != null) orderItem.productId else orderItem.product?.id)!!,
             amount = orderItem.amount
         )
     }

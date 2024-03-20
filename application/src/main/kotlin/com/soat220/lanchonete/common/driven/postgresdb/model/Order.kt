@@ -13,9 +13,8 @@ class Order(
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id")
-    val customer: Customer?,
+    @Column(name = "customer_id", nullable = true)
+    val customer: Long?,
 
     @Column(name = "status", nullable = false)
     var status: OrderStatus,
@@ -37,9 +36,9 @@ class Order(
     var orderItems: List<OrderItem> = mutableListOf()
 ) {
 
-    fun toDomain() = DomainOrder(
+    fun toDomain(customer: com.soat220.lanchonete.common.model.Customer?) = DomainOrder(
         id = id,
-        customer = customer?.toDomain(),
+        customer = customer,
         orderItems = orderItems.map { it.toDomain() }.toMutableList(),
         orderStatus = status,
         notes = notes,
@@ -51,7 +50,7 @@ class Order(
     companion object {
         fun fromDomain(order: DomainOrder) = Order(
             id = order.id,
-            customer = Customer.fromDomain(order.customer),
+            customer = order.customer?.id,
             orderItems = order.orderItems.map { OrderItem.fromDomain(it) }.toMutableList(),
             status = order.orderStatus,
             createdAt = order.createdAt,

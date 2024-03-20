@@ -10,6 +10,7 @@ services:
       DB_URL: jdbc:postgresql://fiap-lanchonete-api-kitchen-postgres-1:5434/kitchen
       SERVER_PORT: 82
       RABBIT_HOST: rabbitmq
+      ERP_URL: http://erp
     ports:
       - "82:82"
     depends_on:
