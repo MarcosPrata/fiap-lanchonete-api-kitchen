@@ -1,25 +1,19 @@
 package com.soat220.lanchonete.kitchen.driven
 
-import com.soat220.lanchonete.common.driven.postgresdb.CustomerRepository
+import com.soat220.lanchonete.common.driven.AbstractHttpClientService
 import com.soat220.lanchonete.common.model.Customer
 import com.soat220.lanchonete.kitchen.port.SaveCustomerPort
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import com.soat220.lanchonete.common.driven.postgresdb.model.Customer as CustomerEntity
 
 @Service
 class SaveCustomerAdapter(
-    private val customerRepository: CustomerRepository
+    @Value("\${url.erp}") private val erpHost: String
 ): SaveCustomerPort {
 
     override fun execute(customer: Customer) {
-        val customerEntity = CustomerEntity.fromDomain(customer)
+        val httpClientService = AbstractHttpClientService<Customer>()
 
-        val optionalCustomer = customerRepository.findByCpf(customer.cpf)
-        if (optionalCustomer.isPresent) {
-            customerEntity.email = optionalCustomer.get().email
-            customerEntity.name = optionalCustomer.get().name
-        }
-
-        customerRepository.save(customerEntity)
+        httpClientService.post<Customer>("$erpHost:83/api/erp/customers", customer);
     }
 }

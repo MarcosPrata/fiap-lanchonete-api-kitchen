@@ -22,7 +22,7 @@ class FindCustomerByIdAdapter(
 
             val httpClientService = AbstractHttpClientService<Product>()
 
-            Success(httpClientService.get("$erpHost:83:83/api/erp/customers/$customerId"))
+            Success(httpClientService.get("$erpHost:83/api/erp/customers/$customerId"))
         } catch (e: Exception) {
             Failure(
                 DomainException(e, ErrorCode.ENTITY_NOT_FOUND_ERROR)
