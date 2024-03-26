@@ -12,6 +12,7 @@ import com.soat220.lanchonete.common.result.Failure
 import com.soat220.lanchonete.common.result.Result
 import com.soat220.lanchonete.common.result.Success
 import com.soat220.lanchonete.common.result.getOrNull
+import com.soat220.lanchonete.kitchen.port.FindCustomerByIdPort
 import com.soat220.lanchonete.kitchen.port.FindOrdersByStatusPort
 import com.soat220.lanchonete.kitchen.port.FindProductByIdPort
 import io.mockk.every
@@ -25,13 +26,15 @@ class FindOrdersByStatusAdapterTest {
 
     private lateinit var orderRepository: OrderRepository
     private lateinit var findProductByIdPort: FindProductByIdPort
+    private lateinit var findCustomerByIdPort: FindCustomerByIdPort
     private lateinit var findOrdersByStatusPort: FindOrdersByStatusPort
 
     @BeforeEach
     fun setUp() {
         orderRepository = mockk()
         findProductByIdPort = mockk()
-        findOrdersByStatusPort = FindOrdersByStatusAdapter(orderRepository, findProductByIdPort)
+        findCustomerByIdPort = mockk()
+        findOrdersByStatusPort = FindOrdersByStatusAdapter(orderRepository, findProductByIdPort, findCustomerByIdPort)
     }
 
     @Test

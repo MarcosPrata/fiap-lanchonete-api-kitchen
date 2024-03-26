@@ -1,4 +1,4 @@
-**# fiap-lanchonete-api
+# fiap-lanchonete-api
 
 ![Turma](https://img.shields.io/badge/👨🏻‍🏫_Turma-SOAT2-blue?style=for-the-badge)
 ![Equipe](https://img.shields.io/badge/🧑🏻‍💻_equipe-20-blue?style=for-the-badge)
@@ -47,11 +47,11 @@ Infra:
 - **Docker**
 - **Gradle** versão 6.6.1
 - **Java** 17 ou superior
-- **Kubectl** versão 5.0.1 ou superior
 
 ## 🚀 Quick Start
 - Rodar usando o Docker:
     - Em cada serviço execute o comando abaixo para subir as app's, os bancos de dados e o rabbitMQ
+      (necessário subir primeiro o customer-totem, por conta da network compartilhada dos containers)
         - `$ docker-compose up`
     - Lembre-se de ter as seguintes portas disponiveis: Serviços (80, 81, 82, 83), Postgres (5432, 5433, 5434, 5435) e RabbitMQ (5672, 15672)
 
@@ -64,7 +64,7 @@ Infra:
 ## LGPD
 
 - [Relatório de Impacto à Proteção de Dados Pessoais (RIPD).pdf](docs%2FRelat%F3rio%20de%20Impacto%20%E0%20Prote%E7%E3o%20de%20Dados%20Pessoais%20%28RIPD%29.pdf)
-
+- ROTA responsável por exclusão dos dados pessoais dos clientes pode ser encontrado na collection da aplicação (Delete customer).
 
 ## Postman collection
 
