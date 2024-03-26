@@ -22,23 +22,23 @@ class OrderItem(
     @JoinColumn(name = "order_id", nullable = false)
     var order: Order? = null,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    val product: Product,
+    @Column(name = "product_id", nullable = false)
+    val product: Long,
 
     @Column(name = "amount", nullable = false)
     val amount: Int
 ) {
     fun toDomain() = DomainOrderItem(
         id = id,
-        product = product.toDomain(),
+        productId = product,
+        product = null,
         amount = amount
     )
 
     companion object {
         fun fromDomain(orderItem: DomainOrderItem) = OrderItem(
             id = orderItem.id,
-            product = Product.fromDomain(orderItem.product),
+            product = (if (orderItem.productId != null) orderItem.productId else orderItem.product?.id)!!,
             amount = orderItem.amount
         )
     }
