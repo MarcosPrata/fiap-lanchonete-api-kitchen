@@ -4,12 +4,14 @@ import com.soat220.lanchonete.common.driven.postgresdb.OrderRepository
 import com.soat220.lanchonete.common.exception.DomainException
 import com.soat220.lanchonete.common.exception.ErrorCode
 import com.soat220.lanchonete.common.model.Order
+import com.soat220.lanchonete.common.model.PaymentStatus
 import com.soat220.lanchonete.common.model.enums.OrderStatus
 import com.soat220.lanchonete.common.result.Failure
 import com.soat220.lanchonete.common.result.Result
 import com.soat220.lanchonete.common.result.Success
 import com.soat220.lanchonete.common.result.getOrNull
 import com.soat220.lanchonete.kitchen.driven.SetOrderStatusAdapter
+import com.soat220.lanchonete.kitchen.port.FindCustomerByIdPort
 import com.soat220.lanchonete.kitchen.port.SetOrderStatusPort
 import io.mockk.every
 import io.mockk.mockk
@@ -23,11 +25,13 @@ class SetOrderStatusAdapterTest {
 
     private lateinit var orderRepository: OrderRepository
     private lateinit var setOrderStatusPort: SetOrderStatusPort
+    private lateinit var findCustomerByIdPort: FindCustomerByIdPort
 
     @BeforeEach
     fun setUp() {
         orderRepository = mockk()
-        setOrderStatusPort = SetOrderStatusAdapter(orderRepository)
+        findCustomerByIdPort = mockk()
+        setOrderStatusPort = SetOrderStatusAdapter(orderRepository, findCustomerByIdPort)
     }
 
     @Test
@@ -38,7 +42,8 @@ class SetOrderStatusAdapterTest {
             notes = "",
             orderItems = mutableListOf(),
             createdAt = LocalDateTime.now(),
-            updatedAt = LocalDateTime.now()
+            updatedAt = LocalDateTime.now(),
+            paymentStatus = PaymentStatus.APPROVED
         )
 
         val entityOrder = com.soat220.lanchonete.common.driven.postgresdb.model.Order.fromDomain(order)

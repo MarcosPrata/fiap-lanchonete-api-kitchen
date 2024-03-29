@@ -5,37 +5,30 @@ import com.soat220.lanchonete.common.exception.DomainException
 import com.soat220.lanchonete.common.exception.ErrorCode
 import com.soat220.lanchonete.common.model.Customer
 import com.soat220.lanchonete.common.model.Order
-import com.soat220.lanchonete.common.model.enums.OrderStatus
 import com.soat220.lanchonete.common.result.Failure
 import com.soat220.lanchonete.common.result.Result
 import com.soat220.lanchonete.common.result.Success
 import com.soat220.lanchonete.common.result.getOrNull
 import com.soat220.lanchonete.kitchen.port.FindCustomerByIdPort
-import com.soat220.lanchonete.kitchen.port.SetOrderStatusPort
+import com.soat220.lanchonete.kitchen.port.FindOrderByIdPort
 import org.springframework.stereotype.Service
 
 @Service
-class SetOrderStatusAdapter(
+class FindOrderByIdAdapter(
     private val orderRepository: OrderRepository,
     private val findCustomerByIdPort: FindCustomerByIdPort
-) : SetOrderStatusPort {
-    override fun execute(orderId: Long, orderStatus: OrderStatus): Result<Order, DomainException> {
+): FindOrderByIdPort {
+    override fun execute(orderId: Long): Result<Order, DomainException> {
         return try {
-            val order = orderRepository.findById(orderId).orElseThrow()
-
-            order.status = orderStatus
-
+            val orderEntity = orderRepository.findById(orderId).orElseThrow()
             var customer: Customer? = null
 
-            if (order.customer != null) {
-                customer = findCustomerByIdPort.execute(order.customer).getOrNull()
+            if (orderEntity.customer != null) {
+                customer = findCustomerByIdPort.execute(orderEntity.customer).getOrNull()
             }
-
-            Success(orderRepository.save(order).toDomain(customer))
+            Success(orderEntity.toDomain(customer))
         } catch (e: Exception) {
-            return Failure(
-                DomainException(e, ErrorCode.DATABASE_ERROR)
-            )
+            Failure(DomainException(e, ErrorCode.DATABASE_ERROR))
         }
     }
 }
